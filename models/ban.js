@@ -3,8 +3,8 @@
 */
 const mongoose = require("mongoose");
 
-const UserSchema = mongoose.Schema({
+const BanSchema = mongoose.Schema({
     ip: String,
 });
 
-module.exports = mongoose.model("bans", UserSchema);
+module.exports = mongoose.model("bans", BanSchema);
