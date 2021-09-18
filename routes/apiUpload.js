@@ -9,6 +9,8 @@ const { existsSync, mkdirSync, fstat } = require('fs');
 
 const userModel = require('../models/user');
 const fileModel = require('../models/file');
+const banModel = require('../../models/ban');
+
 
 const router = Router();
 
@@ -58,6 +60,11 @@ router.post('/api/upload', async (req, res) => {
         error: "No key was privided in the headers."
     }));
 
+    let bannedips = await banModel.findOne({ ip: bannedips });
+    if (bannedips == req.ip) return res.status(400).send(JSON.stringify({
+        error: "You Are Banned From The Host Please Contact The owner TO Upload More."
+    }));
+    
     let userData = await userModel.findOne({ key: key });
     if (userData == null) return res.status(400).send(JSON.stringify({
         error: "An incorrect key was privided in the headers."
