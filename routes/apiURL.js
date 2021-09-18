@@ -29,7 +29,12 @@ router.post("/api/url", async (req, res) => {
     if (!key) return res.status(400).send(JSON.stringify({
         error: "No key was privided in the headers."
     }));
-
+    
+    let bannedips = await banModel.findOne({ ip: bannedips });
+    if (bannedips == req.ip) return res.status(400).send(JSON.stringify({
+        error: "You Are Banned From The Host Please Contact The owner TO Upload More."
+    }));
+    
     let userData = await userModel.findOne({ key: key });
     if (userData == null) return res.status(400).send(JSON.stringify({
         error: "An incorrect key was privided in the headers."
