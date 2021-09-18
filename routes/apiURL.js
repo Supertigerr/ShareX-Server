@@ -6,6 +6,8 @@ const { Router } = require('express');
 
 const URLModel = require('../models/url');
 const userModel = require('../models/user');
+const banModel = require('../../models/ban');
+
 
 const router = Router();
 
